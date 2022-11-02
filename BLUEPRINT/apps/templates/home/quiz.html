@@ -1,0 +1,24 @@
+<h1 class="title">Cars-2 Screening</h1>
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<form action='/quiz' method='POST'>
+    <ol>
+        {% for i in q %}
+            <li>How do you describe the <u>{{i}}</u> state of your child</li>
+            {% for j in o[i] %}
+                <input type='radio' value='{{j}}' name='{{i}}' />{{j}}
+                <br>
+            {% endfor %}
+                <br>
+        {% endfor %}
+        {% for z in N %}
+                       <img src = '{{z}}' height="500" width="333">
+                {% endfor %}
+
+    </ol>
+    <input type="submit" value="submit" />
+</form>

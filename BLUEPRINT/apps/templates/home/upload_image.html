@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% extends 'layouts/base.html' %}
+{% block content %}
+<html>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+ <head>
+     <title>Autism Prediction</title>
+
+
+ </head>
+ <body>
+   <h1 class="text-center">Detect by Picture</h1>
+
+   <form class="p-3 text-center" action='/upload_image.html', method="POST" enctype="multipart/form-data">
+       <input class="form-control" type="file" name="imagefile1" >
+       <input class="form-control" type="file" name="imagefile2" >
+       <input class="form-control" type="file" name="imagefile3" >
+       <input class="btn btn-primary mt-3"type="submit" value="Predict image" >
+
+       {% if prediction %}
+     <p class="text-center">Kid is {{prediction}}</p>
+
+
+
+   {% endif %}
+
+   </form>
+
+
+ </body>
+
+
+
+
+
+{% include "includes/footer.html" %}
+
+
+{% endblock content %}
+</html>

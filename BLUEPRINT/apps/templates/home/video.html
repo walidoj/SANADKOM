@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VideoFeed</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+    
+</head>
+<body>
+
+    <video autoplay="true" id="videoElement" hidden>
+    </video>
+    <canvas id="canvasElement" hidden></canvas>
+    
+    <div style="display: flex; align-items: center; flex-direction: column; justify-content: center; margin: 90px auto;" >
+        <p>If you cant see your Image from Your web cam
+            There must be someone testing this application</p>
+        
+        <br>
+        <img id="imageElement" src="{{ url_for('home_blueprint.video_feed') }}" style=" height: 500px;">
+        
+    </div>
+    <video width="320" height="240" controls>
+  <source src="static/video/Girl toys vs boy toys_ The experiment - BBC Stories.mp4" type="video/mp4">
+  <source src="movie.ogg" type="video/ogg">
+Your browser does not support the video tag.
+</video>
+    
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <a class="text-body text-sm font-weight-bold mb-0 icon-move-right mt-auto"  href="{{url_for('home_blueprint.quiz')}}">
+         Read More
+                      <i class="fas fa-arrow-right text-sm ms-1" aria-hidden="true"></i>
+                    </a>
+    
+    
+    <!-- <script src="../static/js/main.js"></script> -->
+
+
+
+</body>
+</html>
