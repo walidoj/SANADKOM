@@ -21,6 +21,7 @@ from flask import Flask, render_template, request,url_for
 import copy
 from flask import Flask, render_template, Response, request, jsonify
 from camera2 import VideoCamera
+from camera3 import VideoCamera3
 import Funcs as f
 from flask import current_app
 from .. import socketio
