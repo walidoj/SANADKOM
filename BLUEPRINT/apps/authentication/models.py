@@ -9,9 +9,6 @@ from flask import session
 from apps import db, login_manager
 
 from apps.authentication.util import hash_pass
-from flask import render_template, request,Flask
-from flask import session as login_session
-
 
 class Users(db.Model, UserMixin):
 

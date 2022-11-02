@@ -1,5 +1,4 @@
 import os
-from flask import current_app
 
 
 class Config(object):
@@ -37,7 +36,7 @@ class ProductionConfig(Config):
 
 
 class DebugConfig(Config):
-    DEBUG = False
+    DEBUG = True
 
 
 # Load all possible configurations
