@@ -22,6 +22,7 @@ import copy
 from flask import Flask, render_template, Response, request, jsonify
 from camera2 import VideoCamera
 from camera3 import VideoCamera3
+from camera4 import VideoCamera4
 import Funcs as f
 from flask import current_app
 from .. import socketio
@@ -179,13 +180,18 @@ def quiz_answers():
 
 
 Cam = VideoCamera()
-
+Cam2 = VideoCamera4()
+choose = 0
 @socketio.on('input image', namespace='/test')
 @login_required
 
 def test_message(input):
     input = input.split(",")[1]
-    Cam.enqueue_input(input)
+    if choose==0:
+        Cam.enqueue_input(input)
+    elif choose==1:
+        Cam2.enqueue_input(input)
+
     #camera.enqueue_input(base64_to_pil_image(input))
 
 
@@ -225,7 +231,12 @@ def gen(Camera,no):
 
 def video_feed():
     """Video streaming route. Put this in the src attribute of an img tag."""
-    frame = gen(Cam,0)
+    if choose==0:
+        frame = gen(Cam,0)
+    elif choose==1:
+        frame = gen(Cam2,0)
+
+
 
     return Response(frame, mimetype='multipart/x-mixed-replace; boundary=frame')
 
@@ -238,3 +249,18 @@ def video_feed2():
     frame = gen(Cam,1)
 
     return Response(frame, mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@blueprint.route('/video2')
+@login_required
+
+def vvv():
+    global choose
+    choose=1
+    
+
+    #data = Cam.data()
+    #print(data)
+
+
+    """Video streaming home page."""
+    return render_template('home/video.html')

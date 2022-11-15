@@ -7,6 +7,8 @@
 from PIL import Image
 from fer import FER
 import cv2
+score=0
+
 
 def autism_detector(x):
     normal_emotions = ['happy', 'surprise']
@@ -28,6 +30,41 @@ def aut_percentage(x):
         per_ratio += float(aa)
     result = per_ratio * 100
     return result
+
+
+def firstphase(x):
+    global score
+
+    normal_emotions = ['happy', 'surprise']
+    autistic_emotions = ['angry', 'neutral', 'sad', 'disgust']
+    final_report = ''
+    for a in x:
+        if a in normal_emotions:
+            final_report += 'he person under consideration is not autistic'
+            score=0
+        else:
+            if a in autistic_emotions:
+                final_report += 'The person is autistic'
+                score=1
+    return final_report,score
+
+
+def secondphase(x):
+    global score
+
+    normal_emotions = ['angry', 'sad']
+    autistic_emotions = ['happy', 'neutral', 'surprise', 'disgust']
+    final_report = ''
+    for a in x:
+        if a in normal_emotions:
+            final_report += 'The person under consideration is not autistic'
+            score=(0)
+        else:
+            if a in autistic_emotions:
+                final_report += 'The person is autistic'
+                score=(1)
+    return final_report,score
+
 # Refining Image for AI model with the help of PIL library
 '''
 image_refined = cv2.imread('test.jpg')  # Photo by cottonbro from Pexels, taken under creative common license.

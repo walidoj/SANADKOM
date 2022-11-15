@@ -7,14 +7,9 @@ from GazeTracking.gaze_tracking import GazeTracking
 from fer import FER
 from Emotionrec import autism_detector,aut_percentage
 
-import matplotlib as plt
-import seaborn as sns
 trainedfacedata = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-gaze = GazeTracking()
-eye_1x_positions = list()
-eye_1y_positions = list()
-eye_2x_positions = list()
-eye_2y_positions = list()
+detection = FER()
+
 
 class VideoCamera3(object):
     def __init__(self):
@@ -25,6 +20,7 @@ class VideoCamera3(object):
         thread = threading.Thread(target=self.keep_processing, args=())
         thread.daemon = True
         thread.start()
+
 
     def process_one(self):
         if not self.to_process:
@@ -43,22 +39,24 @@ class VideoCamera3(object):
         top = 500
         right = 3800
         bottom = 4000
+
+
+
         cropped = bgr_image
         #cv2.imshow("img", cropped)
         # Converting image to grayscale
-        gray = cv2.cvtColor(cropped, cv2.COLOR_BGR2GRAY)
-        cv2.imwrite('cropped_grayscale.jpg', gray)
+        #gray = cv2.cvtColor(cropped, cv2.COLOR_BGR2GRAY)
+        #cv2.imwrite('cropped_grayscale.jpg', gray)
 
         # Detecting emotions of the human with FER module and printing the output
-        image_path = cv2.imread('cropped_grayscale.jpg')
-        detection = FER()
-        all_emotions = detection.detect_emotions(image_path)
+        #image_path = cv2.imread('cropped_grayscale.jpg')
+        all_emotions = detection.detect_emotions(cropped)
         all_emotion_list = list(all_emotions)
         print(f'***This is the complete list of all emotions in the human:{all_emotion_list}')
 
-        image_path = cv2.imread('cropped_grayscale.jpg')
-        detection = FER()
-        top_emotion = detection.top_emotion(image_path)
+        #image_path = cv2.imread('cropped_grayscale.jpg')
+        #detection = FER()
+        top_emotion = detection.top_emotion(cropped)
         top_emotion_list = list(top_emotion)
         print(f'***This is the dominant emotion in the human: {top_emotion_list}')
 
@@ -112,9 +110,7 @@ class VideoCamera3(object):
         while not self.output_image_rgb:
             sleep(0.05)
         return self.output_image_rgb.pop(0), self.output_image_bgr.pop(0)
-    def data(self):
-        data = list(zip(eye_1x_positions, eye_1y_positions))
-        return data
+
 
 
 
