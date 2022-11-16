@@ -180,7 +180,7 @@ The project is coded using blueprints, app factory pattern, dual configuration p
    |    |-- templates/                      # Templates used to render pages
    |    |    |-- includes/                  # HTML chunks and components
    |    |    |    |-- navigation.html       # Top menu component
-   |    |    |    |-- sidebar.html          # Sidebar component
+   |    |    |    |-- docsidebar.html          # Sidebar component
    |    |    |    |-- footer.html           # App Footer
    |    |    |    |-- scripts.html          # Scripts common to all pages
    |    |    |

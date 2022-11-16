@@ -1,0 +1,164 @@
+{% extends 'layouts/base.html' %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="container-fluid py-4">
+
+      <div class="col-6 text-end">
+        <a class="btn bg-gradient-dark mb-0" href="javascript:;" onclick = 'display()'><i class="fas fa-plus"></i>&nbsp;&nbsp;BOOK APPOINTMENT</a>
+      </div>
+      <div style="display: none;" id="form-section">
+        <section class="min-vh-100 mb-3">
+          <div class="mt-12">
+          </div>
+          <div class="container mb-8" class="page-header align-items-start min-vh-50 pt-0 pb-11 m-3 border-radius-lg">
+            <div class="row mt-lg-n20 mt-md-n11 mt-n20">
+              <div class=" col-lg-10 col-md-10 mx-auto">
+                <div class="card z-index-0">
+                  <div class="card-body">
+                    <div class="text-end mx-14">
+                      <a class="btn bg-gradient-dark mb-0" href="javascript:;" onclick = 'cancel()'>CANCEL</a>
+                    </div>
+                    <form role="form text-left" method="post" action="">
+
+                      {{ form.hidden_tag() }}
+                      <div class="m-1" style="display: flex;margin: 2rem;">
+                        <div class="side col-xl-5">
+                          {{ form.Doctor.label }}
+                          <div class="mb-1 ">
+                            {{ form.Doctor(placeholder="Doctor", class="form-control") }}
+                          </div>
+                          {{ form.Date.label}}
+                          <div class="mb-1">
+                            {{ form.Date(placeholder="Date", class="input form-control datepicker") }}
+                          </div>
+                          {{ form.Time.label }}
+                          <div class="mb-1">
+                            {{ form.Time(placeholder="Time", class="form-control timepicker") }}
+                          </div>
+                          {{ form.weight.label }}
+                          <div class="mb-1">
+                            {{ form.weight(placeholder="weight", class="form-control") }}
+                          </div>
+                        </div>
+                        <div class="side col-xl-5" style="margin-left: 2rem;">
+                            {{ form.height.label }}
+                          <div class="mb-1">
+                            {{ form.height(placeholder="height", class="form-control") }}
+                          </div>
+                          {{ form.Age.label }}
+                          <div class="mb-1">
+                            {{ form.Age(placeholder="Age", class="form-control") }}
+                          </div>
+                          {{ form.Phoneno.label }}
+                          <div class="mb-1">
+                            {{ form.Phoneno(placeholder="+1023...", class="form-control") }}
+                          </div>
+                          {{ form.Name.label }}
+                          <div class="mb-1">
+                            {{ form.Name(placeholder="Name", class="form-control") }}
+                          </div>
+                        </div>
+                      </div>
+                      {{ form.Question.label }}
+                          <div class="mb-1" style="border:none;list-style-type: none;">
+                            {{ form.Question(placeholder="Question", class="form-control") }}
+                          </div>
+                          <div class="text-center">
+                            <button type="submit" name="book" class="btn bg-gradient-info mt-4 mb-0">{{form.Submit}}</button>
+                          </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+        <div class="row my-4">
+          <div class="col-lg-12 col-md-6 mb-md-0 mb-4">
+            <div class="card">
+              <div class="card-header pb-0">
+                <div class="row">
+                  <div class="col-lg-6 col-7">
+                    <h6>My Appointments</h6>
+                  </div>
+                  <div class="col-lg-6 col-5 my-auto text-end">
+                    <div class="dropdown float-lg-end pe-4">
+                      <a class="cursor-pointer" id="dropdownTable" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-ellipsis-v text-secondary"></i>
+                      </a>
+                      <ul class="dropdown-menu px-2 py-3 ms-sm-n4 ms-n5" aria-labelledby="dropdownTable">
+                        <li><a class="dropdown-item border-radius-md" href="javascript:;">Action</a></li>
+                        <li><a class="dropdown-item border-radius-md" href="javascript:;">Another action</a></li>
+                        <li><a class="dropdown-item border-radius-md" href="javascript:;">Something else here</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </s>
+            <div class="card-body px-0 pb-2">
+              <div class="table-responsive">
+                <table class="table align-items-center mb-0">
+                  <thead>
+                    <tr>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Appoint Number</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Hospital</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date</th>
+                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">TIME</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {%if my_appointment %}
+                  {% for i in my_appointment %}
+                  <tr>
+                    <td>
+                      <div class="d-flex px-2 py-1">
+                        <div class="align-middle text-center text-sm mx-5">
+                          <h6 class="mb-0 text-sm"> {{ i.id }} </h6>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="avatar-group mt-2">
+                        <h6 class="mb-0 text-sm">{{i.doctor}} </h6>
+                      </div>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <span class="text-xs font-weight-bold"> {{i.Date}} </span>
+                    </td>
+                    <td class="align-middle text-center text-sm">
+                      <span class="text-xs font-weight-bold"> {{i.Time}} </span>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                  {% endif %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <script>
+      function display(){
+        document.getElementById('form-section').style.display = 'inline';
+      };
+      function cancel(){
+        document.getElementById('form-section').style.display = 'none';
+      };
+    </script>
+
+{% endblock content %}
+
+<!-- Specific JS goes HERE -->
+{% block javascripts %}
+
+{% endblock javascripts %}

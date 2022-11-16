@@ -27,11 +27,11 @@ class ProductionConfig(Config):
     # PostgreSQL database
     SQLALCHEMY_DATABASE_URI = '{}://{}:{}@{}:{}/{}'.format(
         os.getenv('DB_ENGINE', 'mysql'),
-        os.getenv('DB_USERNAME', 'appseed_db_usr'),
-        os.getenv('DB_PASS', 'pass'),
+        os.getenv('DB_USERNAME', 'Walid'),
+        os.getenv('DB_PASS', 'Dilaw-2811'),
         os.getenv('DB_HOST', 'localhost'),
         os.getenv('DB_PORT', 3306),
-        os.getenv('DB_NAME', 'appseed_db')
+        os.getenv('DB_NAME', 'autapp3')
     )
 
 

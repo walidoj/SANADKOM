@@ -12,6 +12,7 @@ from flask_login import current_user
 
 socketio = SocketIO()
 db = SQLAlchemy()
+
 login_manager = LoginManager()
 
 
