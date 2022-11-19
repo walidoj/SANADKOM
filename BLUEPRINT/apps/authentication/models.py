@@ -76,7 +76,6 @@ class pics (db.Model):
     pic1=db.Column(db.String(100))
     pic2=db.Column(db.String(100))
     pic3=db.Column(db.String(100))
-    pic4=db.Column(db.String(100))
 
 class scores (db.Model):
     __tablename__ = 'scores'
@@ -84,6 +83,7 @@ class scores (db.Model):
     id = db.Column(db.Integer, foreign_key=True)
     score1= db.Column(db.Integer)
     score2= db.Column(db.Integer)
+
 
 
 

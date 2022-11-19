@@ -73,7 +73,7 @@ DB_PORT=3306                # MySql port, default = 3306
 ```bash
 $ # Get the code
 $ git clone https://github.com/appseed-projects/a46b6ce0-3d7f-4865-b37d-f0782f6bb772.git
-$ cd a46b6ce0-3d7f-4865-b37d-f0782f6bb772
+$ cd BluePrintClean
 ```
 
 <br />

@@ -27,3 +27,18 @@ class Question(db.Model):
 
     def __repr__(self):
         return f'{self.question}'
+
+class exam(db.Model):
+    __tablename__ = 'questions'
+
+    q_id = db.Column(db.Integer, primary_key=True)
+    ques = db.Column(db.String(350), unique=True)
+    a = db.Column(db.String(100))
+    b = db.Column(db.String(100))
+    c = db.Column(db.String(100))
+    d = db.Column(db.String(100))
+    ans = db.Column(db.String(100))
+
+    def __repr__(self):
+        return '<Question: {}>'.format(self.ques)
+

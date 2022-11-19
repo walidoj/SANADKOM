@@ -3,7 +3,9 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Autism-Detector" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/BLUEPRINT/BluePrintClean" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/BLUEPRINT/a46b6ce0-3d7f-4865-b37d-f0782f6bb772" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/a46b6ce0-3d7f-4865-b37d-f0782f6bb772" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/flask-quiz-app" vcs="Git" />
   </component>
 </project>

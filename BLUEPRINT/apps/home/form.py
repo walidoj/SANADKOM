@@ -6,6 +6,9 @@ Copyright (c) 2019 - present AppSeed.us
 from flask_wtf import FlaskForm
 from wtforms import StringField, SelectField, DateField,validators, TimeField, IntegerField, SubmitField, SelectMultipleField, widgets
 from wtforms.validators import DataRequired
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, RadioField
+from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
 
 class Questions(SelectMultipleField):
     widget = widgets.ListWidget(prefix_label=False)
@@ -25,3 +28,8 @@ class Appointment(FlaskForm):
 
 class CheckAppointment(FlaskForm):
     Check = SubmitField('Done')
+
+
+class QuestionForm(FlaskForm):
+    options = RadioField('Options: ', validators=[DataRequired()], default=1)
+    submit = SubmitField('Next')

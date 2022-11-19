@@ -4,14 +4,14 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 from apps.home import blueprint
-from apps.authentication.models import pics,request_loader
-from apps.home.form import Appointment, CheckAppointment
+from apps.authentication.models import pics,request_loader, scores
+from apps.home.form import Appointment, CheckAppointment, QuestionForm
 from flask import render_template, request,Flask
 from flask_login import login_required,current_user
 from jinja2 import TemplateNotFound
 from flask_sqlalchemy import SQLAlchemy
 from apps import db, login_manager
-from apps.home.models import AppointMent, Question
+from apps.home.models import AppointMent, Question, exam
 from apps.authentication.models import Doctors
 from flask_socketio import SocketIO
 from flask_socketio import SocketIO, emit
@@ -20,7 +20,7 @@ import logging
 from sys import stdout
 from camera2 import VideoCamera
 from flask import request,redirect
-from flask import Flask, render_template, request,url_for
+from flask import Flask, render_template, request,url_for,g,session
 import copy
 from flask import Flask, render_template, Response, request, jsonify
 from camera2 import VideoCamera
@@ -183,8 +183,18 @@ def predict():
     print(avg)
     if avg > 1/3:
         res="Autistic"
+        avg = 1
+        idd = current_user.id
+        score1 = scores(id=idd, score1=avg)
+        db.session.add(score1)
+        db.session.commit()
     else:
         res="Non Autistic"
+        avg = 0
+        idd = current_user.id
+        score1 = scores(id=idd, score1=avg)
+        db.session.add(score1)
+        db.session.commit()
     segment = get_segment(request)
 
 
@@ -226,6 +236,58 @@ def quiz_answers():
      r = "Your kid have a low possibility of autisim"
  #return '<h1>Your score is: <u>'+str(correct)+'</u></h1>'+r
  return redirect(url_for("home_blueprint.vv"))
+
+
+@blueprint.route('/question/<int:id>', methods=['GET', 'POST'])
+@login_required
+
+def question(id):
+    form = QuestionForm()
+    q = exam.query.filter_by(q_id=id).first()
+    if not q:
+        return redirect(url_for('home_blueprint.score'))
+    if request.method == 'POST':
+        option = request.form['options']
+        if option == q.ans:
+            session['marks'] += 10
+        return redirect(url_for('home_blueprint.question', id=(id+1)))
+    form.options.choices = [(q.a, q.a), (q.b, q.b), (q.c, q.c), (q.d, q.d)]
+    return render_template('exam/question.html', form=form, q=q, title='Question {}'.format(id))
+
+
+@blueprint.route('/score')
+@login_required
+
+def score():
+    if not g.user:
+        return redirect(url_for('login'))
+    g.user.marks = session['marks']
+    # db.session.commit()
+    return render_template('exam/score.html', title='Final Score')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
