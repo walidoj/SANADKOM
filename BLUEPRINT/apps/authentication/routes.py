@@ -19,7 +19,7 @@ from apps.authentication.util import verify_pass
 
 @blueprint.route('/')
 def route_default():
-    return redirect(url_for('authentication_blueprint.login'))
+    return redirect(url_for('home_blueprint.home'))
 
 # Login & Registration
 
@@ -156,12 +156,12 @@ def logout():
 
 @login_manager.unauthorized_handler
 def unauthorized_handler():
-    return render_template('home/page-403.html'), 403
+     return redirect(url_for('authentication_blueprint.login'))
 
 
 @blueprint.errorhandler(403)
 def access_forbidden(error):
-    return render_template('home/page-403.html'), 403
+    return redirect(url_for('authentication_blueprint.login'))
 
 
 @blueprint.errorhandler(404)
