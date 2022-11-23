@@ -45,6 +45,18 @@ original_questions = {
 questions = copy.deepcopy(original_questions)
 import os
 
+
+@blueprint.route('/diagnosis')
+@login_required
+def diagnosis():
+    return render_template('home/diagnose.html')
+
+
+@blueprint.route('/home')
+def home():
+    return render_template('home/hmpage.html')
+
+
 @blueprint.route('/index')
 @login_required
 def index():
@@ -244,12 +256,20 @@ def quiz_answers():
 def question(id):
     form = QuestionForm()
     q = exam.query.filter_by(q_id=id).first()
+    session['marks']=0
     if not q:
         return redirect(url_for('home_blueprint.score'))
     if request.method == 'POST':
         option = request.form['options']
-        if option == q.ans:
+        if option == q.ans1:
             session['marks'] += 10
+        elif option == q.ans2:
+            session['marks'] += 20
+        elif option == q.ans3:
+            session['marks'] += 30
+        elif option == q.ans4:
+            session['marks'] += 40
+        print(session['marks'])
         return redirect(url_for('home_blueprint.question', id=(id+1)))
     form.options.choices = [(q.a, q.a), (q.b, q.b), (q.c, q.c), (q.d, q.d)]
     return render_template('exam/question.html', form=form, q=q, title='Question {}'.format(id))
@@ -259,10 +279,12 @@ def question(id):
 @login_required
 
 def score():
-    if not g.user:
-        return redirect(url_for('login'))
-    g.user.marks = session['marks']
-    # db.session.commit()
+    idd = current_user.id
+    fullmark = session['marks']
+    print(fullmark)
+    score2=scores(id=idd,score2=fullmark)
+    db.session.add(score2)
+    db.session.commit()
     return render_template('exam/score.html', title='Final Score')
 
 

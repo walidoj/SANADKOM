@@ -38,6 +38,11 @@ class exam(db.Model):
     c = db.Column(db.String(100))
     d = db.Column(db.String(100))
     ans = db.Column(db.String(100))
+    ans1 = db.Column(db.String(100))
+    ans2 = db.Column(db.String(100))
+    ans3 = db.Column(db.String(100))
+    ans4 = db.Column(db.String(100))
+    marks=db.Column(db.Integer,index=True)
 
     def __repr__(self):
         return '<Question: {}>'.format(self.ques)
