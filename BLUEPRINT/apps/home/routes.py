@@ -127,6 +127,7 @@ def route_template(template):
                 print("his2")
 
         # Serve the file (if exists) from app/templates/home/
+
         return render_template("home/" + template, segment=segment)
 
     except TemplateNotFound:
