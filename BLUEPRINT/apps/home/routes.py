@@ -27,6 +27,8 @@ from camera2 import VideoCamera
 from camera3 import VideoCamera3
 from camera4 import VideoCamera4
 import Funcs as f
+import graph
+from readCoordinates import graph
 from flask import current_app
 from .. import socketio
 imagelist={"static/images/image1.png","static/images/image2.png"}
@@ -295,6 +297,10 @@ def score():
 
 
 
+def heatmap():
+    idd = current_user.id
+    graph()
+    return render_template('home/heatmap.html')
 
 
 

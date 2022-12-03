@@ -4,7 +4,7 @@ import threading
 from time import sleep
 import numpy as np
 from GazeTracking.gaze_tracking import GazeTracking
-
+import csv
 import matplotlib as plt
 import seaborn as sns
 trainedfacedata = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
@@ -59,19 +59,22 @@ class VideoCamera(object):
         elif gaze.is_center():
             text = "Looking center"
 
-        #cv2.putText(frame, text, (0, 0), cv2.FONT_HERSHEY_DUPLEX, 1.2, (147, 58, 31), 2)
+        cv2.putText(frame, text, (90, 60), cv2.FONT_HERSHEY_DUPLEX, 1.6, (147, 58, 31), 2)
 
-        left_pupilx = gaze.cordslx()
-        left_pupily = gaze.cordsly()
-        right_pupilx = gaze.cordsrx()
-        right_pupily = gaze.cordsry()
-        eye_1x_positions.append(left_pupilx)
-        eye_1y_positions.append(left_pupily)
-        cv2.putText(frame, "Left pupil:  " + str(left_pupilx) + "," + str(left_pupily), (50, 50),
-                    cv2.FONT_HERSHEY_DUPLEX, 0.9, (147, 58, 31), 1)
-        cv2.putText(frame, "Right pupil: " + str(right_pupilx) + "," + str(right_pupily), (50, 60),
-                    cv2.FONT_HERSHEY_DUPLEX, 0.9, (147, 58, 31), 1)
+        left_pupil = gaze.pupil_left_coords()
+        right_pupil = gaze.pupil_right_coords()
+        center_pupil_point_x = gaze.pupil_center_coords_x()
+        center_pupil_point_y = gaze.pupil_center_coords_y()
+        cv2.putText(frame, "Left pupil:  " + str(left_pupil), (90, 130), cv2.FONT_HERSHEY_DUPLEX, 0.9, (147, 58, 31), 1)
+        cv2.putText(frame, "Right pupil: " + str(right_pupil), (90, 165), cv2.FONT_HERSHEY_DUPLEX, 0.9, (147, 58, 31),
+                    1)
 
+        with open('coordinates.csv', 'a') as newFile:
+            newFileWriter = csv.writer(newFile)
+            if center_pupil_point_x != None:
+                newFileWriter.writerow([float(center_pupil_point_x), float(center_pupil_point_y)])
+            else:
+                pass
         #cv2.imshow("Demo", frame)
 
 

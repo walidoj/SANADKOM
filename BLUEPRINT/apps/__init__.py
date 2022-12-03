@@ -4,6 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 from importlib import import_module
 from flask_socketio import SocketIO, emit
 from sys import stdout
+from engineio.async_drivers import gevent
+
 
 
 
@@ -45,7 +47,7 @@ def create_app(config):
     register_blueprints(app)
     configure_database(app)
     app.logger.addHandler(logging.StreamHandler(stdout))
-    socketio.init_app(app)
+    socketio.init_app(app,async_mode='eventlet')
 
 
 
